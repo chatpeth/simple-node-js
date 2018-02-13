@@ -63,7 +63,7 @@ server.on('listening', function() {
 
 server.on('connection', function(socket) {
   server.getConnections(function(err, count) {
-	server.write("Hello\r\n");
+	
     console.log('%d open connections!', count);
   });
 });
