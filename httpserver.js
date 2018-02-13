@@ -1,12 +1,12 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
-var data;
 var tmp = require('fs');
 
 http.createServer(function(request, response){
 	var pathname = url.parse(request.url).pathname;
 	console.log("request for " + pathname + " received.");
+
 	fs.readFile(pathname.substr(1), function(err, data){
 		if(err){
 			console.log(err);
@@ -17,8 +17,7 @@ http.createServer(function(request, response){
 		}
 		response.end();
 	});
-
-    if (request.method == 'POST') {
+	if (request.method == 'POST') {
         var body = '';
 
         request.on('data', function (data) {
@@ -33,19 +32,21 @@ http.createServer(function(request, response){
         request.on('end', function () {
             var post = qs.parse(body);
 			console.log(post);
-			//data = post.toString();
 			console.log("write to file.");
-			tmp.appendFile('output.txt','Some more text to append.',function(err){
+			tmp.appendFile('output.txt', "log", function(err){
 			if(err){
 				console.error(err);
 			}
+			
 			console.log('Appended!');
 		});
 			
 			
             // use post['blah'], etc.
         });
-    }
+		
+	}
+
 }).listen(8081);
 console.log('Server running at http://127.0.0.1:8081/');
 var qs = require('querystring');
