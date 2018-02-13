@@ -1,6 +1,9 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var data;
+var tmp = require('fs');
+
 http.createServer(function(request, response){
 	var pathname = url.parse(request.url).pathname;
 	console.log("request for " + pathname + " received.");
@@ -30,6 +33,16 @@ http.createServer(function(request, response){
         request.on('end', function () {
             var post = qs.parse(body);
 			console.log(post);
+			//data = post.toString();
+			console.log("write to file.");
+			tmp.appendFile('output.txt','Some more text to append.',function(err){
+			if(err){
+				console.error(err);
+			}
+			console.log('Appended!');
+		});
+			
+			
             // use post['blah'], etc.
         });
     }
