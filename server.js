@@ -28,6 +28,7 @@ var echo = function(socket) {
     // data is a Buffer object
     console.log('[socket on data]', data);
 	console.log('[decode] ' + data);
+	//socket.write("ACK\r\n");
   });
   socket.on('end', function() {
     // emitted when the other end sends a FIN packet
@@ -63,7 +64,7 @@ server.on('listening', function() {
 
 server.on('connection', function(socket) {
   server.getConnections(function(err, count) {
-	
+	socket.write("hello_msg\r\n");
     console.log('%d open connections!', count);
   });
 });
