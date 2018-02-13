@@ -4,13 +4,13 @@
  */
 
 var net = require('net'),
-    port = 8080,
+    port = 4660,
     unixsocket = '/tmp/echo.sock';
 
 var log = function(who, what) {
-  return function() {
-    var args = Array.prototype.slice.call(arguments);
-    console.log('[%s on %s]', who, what, args);
+	return function() {
+		var args = Array.prototype.slice.call(arguments);
+		console.log('[%s on %s]', who, what, args);
   };
 };
 
@@ -27,6 +27,7 @@ var echo = function(socket) {
   socket.on('data', function(data) {
     // data is a Buffer object
     console.log('[socket on data]', data);
+	console.log('[decode] ' + data);
   });
   socket.on('end', function() {
     // emitted when the other end sends a FIN packet
