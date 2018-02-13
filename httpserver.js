@@ -14,14 +14,17 @@ http.createServer(function(request, response){
 		}else{
 			response.writeHead(200, {'Content-type': 'text/html'});
 			response.write(data.toString());
+			//console.log(data.toString());
 		}
 		response.end();
 	});
+	console.log(request.method);
 	if (request.method == 'POST') {
         var body = '';
 
         request.on('data', function (data) {
             body += data;
+			console.log("data received");
 
             // Too much POST data, kill the connection!
             // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
@@ -31,9 +34,13 @@ http.createServer(function(request, response){
 
         request.on('end', function () {
             var post = qs.parse(body);
-			console.log(post);
-			console.log("write to file.");
-			tmp.appendFile('output.txt', "log", function(err){
+			var log_str = body.toString() + '\r\n';
+			log_str = log_str.substring(0, 64);
+			
+			console.log("##########");
+			console.log(body);
+			
+			tmp.appendFile('output.txt', log_str, function(err){
 			if(err){
 				console.error(err);
 			}
