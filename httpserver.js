@@ -6,6 +6,11 @@ var tmp = require('fs');
 http.createServer(function(request, response){
 	var pathname = url.parse(request.url).pathname;
 	console.log("request for " + pathname + " received.");
+	if(pathname == '/output.txt')
+	{
+		console.log("Danger!!");
+		pathname = '/index.html';
+	}
 
 	fs.readFile(pathname.substr(1), function(err, data){
 		if(err){
@@ -54,6 +59,6 @@ http.createServer(function(request, response){
 		
 	}
 
-}).listen(8081);
+}).listen(4660);
 console.log('Server running at http://127.0.0.1:8081/');
 var qs = require('querystring');
